@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const http = require("http");
 const sendMailGmail = require("./mailerGmail");
 const sendMailOutlook = require("./mailerOutlook");
@@ -8,18 +10,21 @@ http
     // elawrenceponce@gmail.com
     // e.ponce@qpm.com.qa
     try {
-      let responseGmail = await sendMailGmail({ sendTo: ["elawrenceponce@gmail.com", "e.ponce@qpm.com.qa"] });
-      console.log("gmail", responseGmail);
+      console.log("reqUrl", req.url);
+      let response;
 
-      let responseOutlookV1 = await sendMailOutlook({ sendTo: "e.ponce@qpm.com.qa" });
-      console.log("outlookV1", responseOutlookV1);
+      if (req.url === "/gmail")
+        response = await sendMailGmail({ sendTo: ["elawrenceponce@gmail.com", "e.ponce@qpm.com.qa"] });
 
-      let responseSendGrid = await sendMailSendGrid({ sendTo: "elawrenceponce@gmail.com" });
-      console.log("sendGrid", responseSendGrid);
+      if (req.url === "/outlook") response = await sendMailOutlook({ sendTo: "e.ponce@qpm.com.qa" });
+
+      if (req.url === "/sendgrid") response = await sendMailSendGrid({ sendTo: "elawrenceponce@gmail.com" });
+
+      console.log(req.url, response);
 
       res.end();
     } catch (error) {
-      console.log("on error ", error);
+      console.log("on error ", req.url, error);
       res.end();
     }
   })

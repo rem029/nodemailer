@@ -8,8 +8,8 @@ const sendMailSendGrid = async ({ sendTo }) => {
       port: 465,
       secure: true,
       auth: {
-        user: "apikey",
-        pass: "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",
+        user: process.env.SENDGRID_USER,
+        pass: process.env.SENDGRID_APIKEY,
       },
       logger: true,
     });

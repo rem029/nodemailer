@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.6.0",
+    "dotenv": "^10.0.0",
     "googleapis": "^89.0.0",
     "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.7.0"
